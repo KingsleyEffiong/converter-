@@ -1,14 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PictureAsPdfRoundedIcon from '@mui/icons-material/PictureAsPdfRounded';
 import SortByAlphaRoundedIcon from '@mui/icons-material/SortByAlphaRounded';
 import InsertChartRoundedIcon from '@mui/icons-material/InsertChartRounded';
 import ImageRoundedIcon from '@mui/icons-material/ImageRounded';
+import EventRepeatIcon from '@mui/icons-material/EventRepeat';
 import AttachEmailRoundedIcon from '@mui/icons-material/AttachEmailRounded';
+import GoogleIcon from '@mui/icons-material/Google';
+import XIcon from '@mui/icons-material/X';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import { Button, TextField } from '@mui/material';
 function Login() {
+    const [res, setRes] = useState(false);
+    useEffect(() => {
+        if (window.innerWidth < '900') {
+            console.log('Its 900')
+            setRes(true)
+        } else {
+            console.log('Its not 900')
+            setRes(false)
+        }
+    }, [res])
     const getRandomPosition = () => {
-        const x = Math.floor(Math.random() * 100); // Random position on x-axis (100% width)
-        const y = Math.floor(Math.random() * 100); // Random position on y-axis (100% height)
+        const x = Math.floor(Math.random() * 93); // Random position on x-axis (93% width)
+        const y = Math.floor(Math.random() * 93); // Random position on y-axis (93% height)
         return { left: `${x}%`, top: `${y}%` };
     };
     const renderIcons = (icon, count) => {
@@ -20,11 +34,11 @@ function Login() {
     };
     return (
         <div className='w-full flex items-center justify-center'>
-            <div className="bg-white h-screen w-[50%] flex justify-center items-center">
-                <div className="w-[400px] h-[300px] py-4 px-3">
+            <div className={`bg-white h-screen w-[50%] flex ${res ? 'flex-col' : 'flex-row'} justify-center items-center py-6`}>
+                <div className="w-[400px] h-[300px] px-3">
                     <h1 className='text-center text-3xl'>
-                        <span>PDF CONVERTER</span>
-                        <PictureAsPdfRoundedIcon />
+                        <span>DOCUMENTS CONVERTER</span>
+                        <EventRepeatIcon />
                     </h1>
                     <p className='text-center'>Convert any document for free</p>
                     <form action="" className='w-full flex flex-col gap-6 py-5'>
@@ -116,6 +130,12 @@ function Login() {
                             Login
                         </Button>
                     </form>
+                    <p className='text-center'>or signup with </p>
+                    <div className="w-full flex justify-center gap-10 text-teal-950 my-3 cursor-pointer">
+                        <GoogleIcon />
+                        <XIcon />
+                        <GitHubIcon />
+                    </div>
                 </div>
             </div>
             <div className="bg-teal-950 h-screen w-[50%] text-white relative overflow-hidden">
