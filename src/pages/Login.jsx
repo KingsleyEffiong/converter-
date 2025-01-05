@@ -9,17 +9,20 @@ import GoogleIcon from '@mui/icons-material/Google';
 import XIcon from '@mui/icons-material/X';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { Button, TextField } from '@mui/material';
+import { Link } from 'react-router-dom';
 function Login() {
-    const [res, setRes] = useState(false);
+    const [res, setRes] = useState(window.innerWidth < 900);
     useEffect(() => {
-        if (window.innerWidth < '900') {
-            console.log('Its 900')
-            setRes(true)
-        } else {
-            console.log('Its not 900')
-            setRes(false)
-        }
-    }, [res])
+        const handleResize = () => {
+            setRes(window.innerWidth < 900);
+        };
+
+        // Add event listener for window resize
+        window.addEventListener('resize', handleResize);
+
+        // Cleanup event listener on unmount
+        return () => window.removeEventListener('resize', handleResize);
+    }, [res]);
     const getRandomPosition = () => {
         const x = Math.floor(Math.random() * 93); // Random position on x-axis (93% width)
         const y = Math.floor(Math.random() * 93); // Random position on y-axis (93% height)
@@ -33,9 +36,9 @@ function Login() {
         ));
     };
     return (
-        <div className='w-full flex items-center justify-center'>
-            <div className={`bg-white h-screen w-[50%] flex ${res ? 'flex-col' : 'flex-row'} justify-center items-center py-6`}>
-                <div className="w-[400px] h-[300px] px-3">
+        <div className={`w-full flex items-center justify-center ${res ? 'flex-col' : 'flex-row'}`}>
+            <div className={`bg-white h-screen  ${res ? 'w-[100%]' : 'w-[50%]'} flex justify-center items-center py-6`}>
+                <div className="w-[400px] h-[400px] px-3">
                     <h1 className='text-center text-3xl'>
                         <span>DOCUMENTS CONVERTER</span>
                         <EventRepeatIcon />
@@ -94,32 +97,6 @@ function Login() {
                                 },
                             }}
                         />
-                        <TextField
-                            label="Comfirmed password"
-                            focused
-                            fullWidth
-                            id="fullWidth"
-                            sx={{
-                                '& .MuiInputLabel-root': {
-                                    color: 'rgb(4 47 46 / var(--tw-bg-opacity, 1))',
-                                    fontFamily: 'inherit'
-                                },
-                                '& .MuiInputLabel-root.Mui-focused': {
-                                    color: 'rgb(4 47 46 / var(--tw-bg-opacity, 1))',
-                                },
-                                '& .MuiOutlinedInput-root': {
-                                    '& fieldset': {
-                                        borderColor: 'rgb(4 47 46 / var(--tw-bg-opacity, 1))',
-                                    },
-                                    '&:hover fieldset': {
-                                        borderColor: 'rgb(4 47 46 / var(--tw-bg-opacity, 1))',
-                                    },
-                                    '&.Mui-focused fieldset': {
-                                        borderColor: 'rgb(4 47 46 / var(--tw-bg-opacity, 1))',
-                                    },
-                                },
-                            }}
-                        />
                         <Button
                             variant="contained"
                             sx={{
@@ -134,7 +111,11 @@ function Login() {
                             Login
                         </Button>
                     </form>
-                    <p className='text-center'>or signup with </p>
+                    <p className='text-center'>
+                        <span>dont have an account </span>
+                        <Link to='/signup'>Sign up</Link>
+                    </p>
+                    <p className='text-center'>or signin with </p>
                     <div className="w-full flex justify-center gap-10 text-teal-950 my-3 cursor-pointer">
                         <GoogleIcon />
                         <XIcon />
@@ -142,14 +123,14 @@ function Login() {
                     </div>
                 </div>
             </div>
-            <div className="bg-teal-950 h-screen w-[50%] text-white relative overflow-hidden">
+            {!res && <div className={`bg-teal-950 h-screen ${res ? 'w-[100%]' : 'w-[50%]'} text-white relative overflow-hidden`}>
                 {/* Duplicate icons and position them randomly */}
                 {renderIcons(<PictureAsPdfRoundedIcon sx={{ fontSize: 40 }} />, 2)}
                 {renderIcons(<SortByAlphaRoundedIcon sx={{ fontSize: 40 }} />, 2)}
                 {renderIcons(<InsertChartRoundedIcon sx={{ fontSize: 40 }} />, 2)}
                 {renderIcons(<ImageRoundedIcon sx={{ fontSize: 40 }} />, 2)}
                 {renderIcons(<AttachEmailRoundedIcon sx={{ fontSize: 40 }} />, 2)}
-            </div>
+            </div>}
         </div>
     )
 }
