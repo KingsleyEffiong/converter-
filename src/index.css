@@ -2,16 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @font-face {
-    font-family: "SEGOEUI";
-    src: url("awesome-font/css/SEGOEUI.TTF") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-  }
-  body,
-  html {
-    margin: 0;
-    padding: 0;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  }
+  font-family: "LilitaOne";
+  src: url("./assets/fonts/LilitaOne-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: "LilitaOne", Tahoma, Geneva, Verdana, sans-serif;
+}

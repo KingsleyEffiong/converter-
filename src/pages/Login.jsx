@@ -50,6 +50,7 @@ function Login() {
                             sx={{
                                 '& .MuiInputLabel-root': {
                                     color: 'rgb(4 47 46 / var(--tw-bg-opacity, 1))',
+                                    fontFamily: 'inherit'
                                 },
                                 '& .MuiInputLabel-root.Mui-focused': {
                                     color: 'rgb(4 47 46 / var(--tw-bg-opacity, 1))',
@@ -75,6 +76,7 @@ function Login() {
                             sx={{
                                 '& .MuiInputLabel-root': {
                                     color: 'rgb(4 47 46 / var(--tw-bg-opacity, 1))',
+                                    fontFamily: 'inherit'
                                 },
                                 '& .MuiInputLabel-root.Mui-focused': {
                                     color: 'rgb(4 47 46 / var(--tw-bg-opacity, 1))',
@@ -100,6 +102,7 @@ function Login() {
                             sx={{
                                 '& .MuiInputLabel-root': {
                                     color: 'rgb(4 47 46 / var(--tw-bg-opacity, 1))',
+                                    fontFamily: 'inherit'
                                 },
                                 '& .MuiInputLabel-root.Mui-focused': {
                                     color: 'rgb(4 47 46 / var(--tw-bg-opacity, 1))',
@@ -122,6 +125,7 @@ function Login() {
                             sx={{
                                 backgroundColor: 'rgb(4 47 46 / var(--tw-bg-opacity, 1))', // Custom background color
                                 color: 'white', // White text color
+                                fontFamily: 'inherit',
                                 '&:hover': {
                                     backgroundColor: 'rgb(4 47 46 / var(--tw-bg-opacity, 1))', // Ensure background stays same on hover
                                 },
