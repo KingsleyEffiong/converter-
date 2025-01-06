@@ -8,7 +8,10 @@ PostProvider.propTypes = {
 const Provider = createContext();
 
 const initialState = {
-    res: window.innerWidth < 900
+    res: window.innerWidth < 900,
+    errorMessage: null,
+    successMessage: null,
+    internetMessage: null,
 }
 
 
@@ -20,15 +23,27 @@ function PostProvider({ children }) {
                     ...state,
                     res: action.payload
                 }
+            case 'errorMessage':
+                return {
+                    ...state,
+                    errorMessage: action.error
+                }
+            case 'successMessage':
+                return {
+                    ...state,
+                    successMessage: action.success
+                }
             default:
                 return state
         }
     }
-    const [{ res }, dispatch] = useReducer(reducer, initialState);
+    const [{ res, errorMessage, successMessage }, dispatch] = useReducer(reducer, initialState);
     return (
         <Provider.Provider value={{
             auth,
             res,
+            errorMessage,
+            successMessage,
             dispatch
         }}>
             {children},

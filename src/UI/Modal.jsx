@@ -1,12 +1,24 @@
 import Swal from 'sweetalert2'
+import { useProvider } from '../component/PostProvider';
 function Modal() {
-    Swal.fire({
-        icon: "error",
-        title: "Oops!",
-        text: "Something went wrong",
-        draggable: true,
-        footer: '<a href="#">Why do I have this issue?</a>'
-    })
+    const { dispatch, errorMessage, successMessage } = useProvider();
+    if (errorMessage !== null) {
+        Swal.fire({
+            icon: "error",
+            title: "Oops!",
+            text: errorMessage,
+            draggable: true,
+        })
+    }
+    if (successMessage !== null) {
+        Swal.fire({
+            title: "Drag me!",
+            icon: "success",
+            text: successMessage,
+            draggable: true
+        });
+    }
+
     return null
 
 }

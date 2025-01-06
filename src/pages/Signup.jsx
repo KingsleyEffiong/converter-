@@ -20,6 +20,7 @@ import Modal from '../UI/Modal';
 
 function Signup() {
   const { res, dispatch, auth } = useProvider();
+  const [checkingMessage, setCheckingMessage] = useState(null);
   useEffect(() => {
     const handleResize = () => {
       dispatch({ type: 'responsiveness', payload: window.innerWidth < 900 })
@@ -51,9 +52,12 @@ function Signup() {
       if (password !== cpassword) throw new Error('Password must be the same!!!');
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const userId = userCredential.user.uid;
+      dispatch({ type: 'successMessage', success: 'User has been added successfully' });
 
     } catch (err) {
-      console.log(err)
+      console.log(err);
+      dispatch({ type: 'errorMessage', error: err.message });
+      setCheckingMessage(err.message)
     }
   }
 
@@ -236,7 +240,7 @@ function Signup() {
             <GitHubIcon />
           </div>
         </div>
-        <Modal />
+        {checkingMessage !== null && <Modal />}
       </div >
       <AnimatedIconPage />
     </div >
