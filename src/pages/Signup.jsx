@@ -1,25 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import PictureAsPdfRoundedIcon from '@mui/icons-material/PictureAsPdfRounded';
-import SortByAlphaRoundedIcon from '@mui/icons-material/SortByAlphaRounded';
-import InsertChartRoundedIcon from '@mui/icons-material/InsertChartRounded';
-import ImageRoundedIcon from '@mui/icons-material/ImageRounded';
 import EventRepeatIcon from '@mui/icons-material/EventRepeat';
-import AttachEmailRoundedIcon from '@mui/icons-material/AttachEmailRounded';
 import GoogleIcon from '@mui/icons-material/Google';
 import XIcon from '@mui/icons-material/X';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { Button, TextField } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { useProvider } from "../component/PostProvider";
+import { PostProvider, useProvider } from "../component/PostProvider";
+import AnimatedIconPage from '../UI/AnimatedIconPage';
 
 function Signup() {
-  const { auth } = useProvider();
-
-  console.log(auth);
-  const [res, setRes] = useState(window.innerWidth < 900);
+  const { res, dispatch } = useProvider();
   useEffect(() => {
     const handleResize = () => {
-      setRes(window.innerWidth < 900);
+      dispatch({ type: 'responsiveness', payload: window.innerWidth < 900 })
     };
 
     // Add event listener for window resize
@@ -28,18 +21,7 @@ function Signup() {
     // Cleanup event listener on unmount
     return () => window.removeEventListener('resize', handleResize);
   }, [res]);
-  const getRandomPosition = () => {
-    const x = Math.floor(Math.random() * 93); // Random position on x-axis (93% width)
-    const y = Math.floor(Math.random() * 93); // Random position on y-axis (93% height)
-    return { left: `${x}%`, top: `${y}%` };
-  };
-  const renderIcons = (icon, count) => {
-    return Array.from({ length: count }).map((_, index) => (
-      <div key={index} style={{ ...getRandomPosition() }} className="absolute">
-        {icon}
-      </div>
-    ));
-  };
+
   return (
     <div className={`w-full flex items-center justify-center ${res ? 'flex-col' : 'flex-row'}`}>
       <div className={`bg-white h-screen  ${res ? 'w-[100%]' : 'w-[50%]'} flex justify-center items-center py-6`}>
@@ -154,14 +136,7 @@ function Signup() {
           </div>
         </div>
       </div>
-      <div className={`bg-teal-950 h-screen ${res ? 'w-[100%]' : 'w-[50%]'} text-white relative overflow-hidden`}>
-        {/* Duplicate icons and position them randomly */}
-        {renderIcons(<PictureAsPdfRoundedIcon sx={{ fontSize: 40 }} />, 2)}
-        {renderIcons(<SortByAlphaRoundedIcon sx={{ fontSize: 40 }} />, 2)}
-        {renderIcons(<InsertChartRoundedIcon sx={{ fontSize: 40 }} />, 2)}
-        {renderIcons(<ImageRoundedIcon sx={{ fontSize: 40 }} />, 2)}
-        {renderIcons(<AttachEmailRoundedIcon sx={{ fontSize: 40 }} />, 2)}
-      </div>
+      <AnimatedIconPage />
     </div>
   )
 }
