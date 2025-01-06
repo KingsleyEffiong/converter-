@@ -11,6 +11,7 @@ function AnimatedIconPage() {
         const y = Math.floor(Math.random() * 93); // Random position on y-axis (93% height)
         return { left: `${x}%`, top: `${y}%` };
     };
+    
     const renderIcons = (icon, count) => {
         return Array.from({ length: count }).map((_, index) => (
             <div key={index} style={{ ...getRandomPosition() }} className="absolute">

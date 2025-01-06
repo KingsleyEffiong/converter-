@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import PictureAsPdfRoundedIcon from '@mui/icons-material/PictureAsPdfRounded';
 import SortByAlphaRoundedIcon from '@mui/icons-material/SortByAlphaRounded';
 import InsertChartRoundedIcon from '@mui/icons-material/InsertChartRounded';
@@ -10,13 +10,13 @@ import XIcon from '@mui/icons-material/X';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { Button, TextField } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useProvider } from '../component/PostProvider';
 function Login() {
-    const [res, setRes] = useState(window.innerWidth < 900);
+    const { res, dispatch } = useProvider();
     useEffect(() => {
         const handleResize = () => {
-            setRes(window.innerWidth < 900);
+            dispatch({ type: 'responsiveness', payload: window.innerWidth < 900 })
         };
-
         // Add event listener for window resize
         window.addEventListener('resize', handleResize);
 
