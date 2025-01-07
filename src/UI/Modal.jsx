@@ -8,7 +8,7 @@ function Modal() {
             title: "Oops!",
             text: errorMessage,
             draggable: true,
-        }).then(() => dispatch({type:'success', suc}))
+        }).then(() => dispatch({ type: 'errorMessage', error: null }))
     }
     if (successMessage !== null) {
         Swal.fire({

@@ -11,7 +11,7 @@ function AnimatedIconPage() {
         const y = Math.floor(Math.random() * 93); // Random position on y-axis (93% height)
         return { left: `${x}%`, top: `${y}%` };
     };
-    
+
     const renderIcons = (icon, count) => {
         return Array.from({ length: count }).map((_, index) => (
             <div key={index} style={{ ...getRandomPosition() }} className="absolute">
@@ -23,11 +23,11 @@ function AnimatedIconPage() {
         <>
             {!res && <div className={`bg-teal-950 h-screen ${res ? 'w-[100%]' : 'w-[50%]'} text-white relative overflow-hidden`}>
                 {/* Duplicate icons and position them randomly */}
-                {renderIcons(<PictureAsPdfRoundedIcon sx={{ fontSize: 40 }} />, 2)}
+                {/* {renderIcons(<PictureAsPdfRoundedIcon sx={{ fontSize: 40 }} />, 2)}
                 {renderIcons(<SortByAlphaRoundedIcon sx={{ fontSize: 40 }} />, 2)}
                 {renderIcons(<InsertChartRoundedIcon sx={{ fontSize: 40 }} />, 2)}
                 {renderIcons(<ImageRoundedIcon sx={{ fontSize: 40 }} />, 2)}
-                {renderIcons(<AttachEmailRoundedIcon sx={{ fontSize: 40 }} />, 2)}
+                {renderIcons(<AttachEmailRoundedIcon sx={{ fontSize: 40 }} />, 2)} */}
             </div>}
         </>
     )
