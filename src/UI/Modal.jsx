@@ -16,7 +16,7 @@ function Modal() {
             icon: "success",
             text: successMessage,
             draggable: true
-        })
+        }).then(() => dispatch({ type: 'successMessage', success: null }))
     }
 
     return null

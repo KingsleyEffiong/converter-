@@ -55,9 +55,20 @@ function Signup() {
       dispatch({ type: 'successMessage', success: 'User has been added successfully' });
 
     } catch (err) {
-      console.log(err);
-      dispatch({ type: 'errorMessage', error: err.message });
-      setCheckingMessage(err.message)
+      console.log(err.message);
+      if (err.message.includes('Firebase: Error (auth/network-request-failed).')) {
+        console.log('True')
+        dispatch({ type: 'errorMessage', error: 'Network Error, Check your internet connection' });
+        setCheckingMessage('Network Error, Check your internet connection')
+      }
+      else if (err.message.includes('Firebase: Error (auth/email-already-in-use).')) {
+        dispatch({ type: 'errorMessage', error: 'Email is already registered' });
+        setCheckingMessage('Email is already registered')
+      }
+      else {
+        dispatch({ type: 'errorMessage', error: err.message });
+        setCheckingMessage(err.message)
+      }
     }
   }
 
