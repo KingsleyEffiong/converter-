@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import { Button, IconButton, styled } from '@mui/material';
+import { useProvider } from './PostProvider';
 function ConvertingLayout() {
+    const { convertFormat, dispatch } = useProvider();
     const VisuallyHiddenInput = styled('input')({
         clip: 'rect(0 0 0 0)',
         clipPath: 'inset(50%)',
@@ -53,6 +55,7 @@ function ConvertingLayout() {
             <h1 className="mt-6 text-2xl text-gray-200 font-medium text-center">
                 Drag and drop files here...
             </h1>
+            <span className='hidden'>{convertFormat}</span>
         </div>
 
     )

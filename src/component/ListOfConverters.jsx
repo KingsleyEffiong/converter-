@@ -4,6 +4,7 @@ import SortByAlphaRoundedIcon from "@mui/icons-material/SortByAlphaRounded";
 import DescriptionIcon from '@mui/icons-material/Description';
 import LinkIcon from '@mui/icons-material/Link';
 import React from 'react'
+import { useProvider } from './PostProvider';
 
 
 const CONVERTERS = [
@@ -99,13 +100,14 @@ const CONVERTERS = [
     },
 ]
 function ListOfConverters() {
+    const { convertFormat, dispatch } = useProvider();
     return (
         <div className='w-full h-[500px] bg-white'>
             <ul className='w-full flex flex-wrap px-4 py-12 gap-5 justify-center '>
                 {CONVERTERS.map((converter) => (
                     <li className='relative w-[300px] h-[200px] rounded-lg bg-teal-950 my-8' key={converter.id}>
                         <div className="w-full absolute -top-8 flex justify-center">
-                            <div className="absolute bg-white w-fit px-4 py-2 h-fit shadow-[0px_8px_24px_rgba(20,184,166,0.8)] rounded-xl flex flex-col gap-3 animate-pulse cursor-pointer">
+                            <div className="absolute bg-white w-fit px-4 py-2 h-fit shadow-[0px_8px_24px_rgba(20,184,166,0.8)] rounded-xl flex flex-col gap-3 animate-bounce-scale-rotate cursor-pointer " onClick={() => dispatch({ type: 'convertFormat', payload: converter.converter })}>
                                 <span>{converter.icon}</span>
                                 <span className="text-teal-950">{converter.converter}</span>
                             </div>

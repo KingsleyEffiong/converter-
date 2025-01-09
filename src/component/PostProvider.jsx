@@ -12,7 +12,8 @@ const initialState = {
     errorMessage: null,
     successMessage: null,
     checkingMessage: null,
-    loading: false
+    loading: false,
+    convertFormat: null
 }
 
 
@@ -44,11 +45,16 @@ function PostProvider({ children }) {
                     ...state,
                     loading: action.payload
                 }
+            case 'convertFormat':
+                return {
+                    ...state,
+                    convertFormat: action.payload
+                }
             default:
                 return state
         }
     }
-    const [{ res, errorMessage, successMessage, checkingMessage, loading }, dispatch] = useReducer(reducer, initialState);
+    const [{ res, errorMessage, successMessage, checkingMessage, loading, convertFormat }, dispatch] = useReducer(reducer, initialState);
     return (
         <Provider.Provider value={{
             auth,
@@ -57,6 +63,7 @@ function PostProvider({ children }) {
             successMessage,
             loading,
             checkingMessage,
+            convertFormat,
             dispatch
         }}>
             {children}
