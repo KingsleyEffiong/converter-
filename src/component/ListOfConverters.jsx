@@ -105,11 +105,11 @@ function ListOfConverters() {
                 {CONVERTERS.map((converter) => (
                     <li className='relative w-[300px] h-[200px] rounded-lg bg-teal-950 my-8' key={converter.id}>
                         <div className="w-full absolute -top-8 flex justify-center">
-
-                            <div className="absolute bg-white w-fit px-4 py-2 h-fit shadow-teal-950 rounded-xl shadow-2xl flex flex-col gap-3">
-                                <span> {converter.icon}</span>
-                                <span className='text-teal-950'>{converter.converter}</span>
+                            <div className="absolute bg-white w-fit px-4 py-2 h-fit shadow-[0px_8px_24px_rgba(20,184,166,0.8)] rounded-xl flex flex-col gap-3 animate-pulse cursor-pointer">
+                                <span>{converter.icon}</span>
+                                <span className="text-teal-950">{converter.converter}</span>
                             </div>
+
                         </div>
                     </li>
                 ))}
