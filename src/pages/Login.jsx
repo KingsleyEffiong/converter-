@@ -1,18 +1,34 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import PictureAsPdfRoundedIcon from '@mui/icons-material/PictureAsPdfRounded';
 import SortByAlphaRoundedIcon from '@mui/icons-material/SortByAlphaRounded';
 import InsertChartRoundedIcon from '@mui/icons-material/InsertChartRounded';
 import ImageRoundedIcon from '@mui/icons-material/ImageRounded';
 import EventRepeatIcon from '@mui/icons-material/EventRepeat';
 import AttachEmailRoundedIcon from '@mui/icons-material/AttachEmailRounded';
-import GoogleIcon from '@mui/icons-material/Google';
-import XIcon from '@mui/icons-material/X';
-import GitHubIcon from '@mui/icons-material/GitHub';
 import { Button, TextField } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useProvider } from '../component/PostProvider';
+import SigninMethods from '../component/SigninMethods';
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import Modal from '../UI/Modal';
+import EmailIcon from '@mui/icons-material/Email';
+import InputAdornment from '@mui/material/InputAdornment';
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import IconButton from '@mui/material/IconButton';
+import AnimatedIconPage from '../UI/AnimatedIconPage';
 function Login() {
-    const { res, dispatch } = useProvider();
+    const { res, dispatch, checkingMessage, auth } = useProvider();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    function togglePasswordVisibility() {
+        setShowPassword(!showPassword);
+    }
+    const navigate = useNavigate();
+
+
     useEffect(() => {
         const handleResize = () => {
             dispatch({ type: 'responsiveness', payload: window.innerWidth < 900 })
@@ -23,18 +39,35 @@ function Login() {
         // Cleanup event listener on unmount
         return () => window.removeEventListener('resize', handleResize);
     }, [res]);
-    const getRandomPosition = () => {
-        const x = Math.floor(Math.random() * 93); // Random position on x-axis (93% width)
-        const y = Math.floor(Math.random() * 93); // Random position on y-axis (93% height)
-        return { left: `${x}%`, top: `${y}%` };
-    };
-    const renderIcons = (icon, count) => {
-        return Array.from({ length: count }).map((_, index) => (
-            <div key={index} style={{ ...getRandomPosition() }} className="absolute">
-                {icon}
-            </div>
-        ));
-    };
+    async function handleLogin() {
+        try {
+            if (!email.trim() || !password.trim()) {
+                throw new Error('All fields must be filled')
+            }
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            console.log(userCredential);
+            dispatch({ type: 'successMessage', success: 'You have successfully logged in' });
+            navigate('/dashbaord');
+        } catch (err) {
+            console.log(err.message);
+            if (err.message.includes('Firebase: Error (auth/network-request-failed).')) {
+                dispatch({ type: 'errorMessage', error: 'Network Error, Check your internet connection' });
+                dispatch({ type: 'checkingMessage', message: 'Network Error, Check your internet connection' });
+            }
+            else if (err.message.includes('Firebase: Error (auth/invalid-credential).')) {
+                dispatch({ type: 'errorMessage', error: 'Invalid Credentials, Put in a correct credential' });
+                dispatch({ type: 'checkingMessage', message: 'Invalid Credentials, Put in a correct credential' });
+            }
+            else if (err.message.includes('Firebase: Error (auth/invalid-email).')) {
+                dispatch({ type: 'errorMessage', error: 'Email is invalid' });
+                dispatch({ type: 'checkingMessage', message: 'Email is invalid' });
+            }
+            else {
+                dispatch({ type: 'errorMessage', error: err.message });
+                dispatch({ type: 'checkingMessage', message: err.message });
+            }
+        }
+    }
     return (
         <div className={`w-full flex items-center justify-center ${res ? 'flex-col' : 'flex-row'}`}>
             <div className={`bg-white h-screen  ${res ? 'w-[100%]' : 'w-[50%]'} flex justify-center items-center py-6`}>
@@ -50,6 +83,16 @@ function Login() {
                             focused
                             fullWidth
                             id="fullWidth"
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <EmailIcon
+                                            className='text-teal-950' />
+                                    </InputAdornment>
+                                ),
+                            }}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             sx={{
                                 '& .MuiInputLabel-root': {
                                     color: 'rgb(4 47 46 / var(--tw-bg-opacity, 1))',
@@ -76,6 +119,27 @@ function Login() {
                             focused
                             fullWidth
                             id="fullWidth"
+                            type={showPassword ? 'text' : 'password'}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <VpnKeyIcon className="text-teal-950" />
+                                    </InputAdornment>
+                                ),
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton onClick={togglePasswordVisibility}>
+                                            {showPassword ? (
+                                                <VisibilityIcon className="text-teal-950" />
+                                            ) : (
+                                                <VisibilityOffIcon className="text-teal-950" />
+                                            )}
+                                        </IconButton>
+                                    </InputAdornment>
+                                ),
+                            }}
                             sx={{
                                 '& .MuiInputLabel-root': {
                                     color: 'rgb(4 47 46 / var(--tw-bg-opacity, 1))',
@@ -99,6 +163,7 @@ function Login() {
                         />
                         <Button
                             variant="contained"
+                            onClick={handleLogin}
                             sx={{
                                 backgroundColor: 'rgb(4 47 46 / var(--tw-bg-opacity, 1))', // Custom background color
                                 color: 'white', // White text color
@@ -116,21 +181,12 @@ function Login() {
                         <Link to='/signup'>Sign up</Link>
                     </p>
                     <p className='text-center'>or signin with </p>
-                    <div className="w-full flex justify-center gap-10 text-teal-950 my-3 cursor-pointer">
-                        <GoogleIcon />
-                        <XIcon />
-                        <GitHubIcon />
-                    </div>
+                    <SigninMethods />
                 </div>
+                {checkingMessage !== null && <Modal />}
             </div>
-            {!res && <div className={`bg-teal-950 h-screen ${res ? 'w-[100%]' : 'w-[50%]'} text-white relative overflow-hidden`}>
-                {/* Duplicate icons and position them randomly */}
-                {renderIcons(<PictureAsPdfRoundedIcon sx={{ fontSize: 40 }} />, 2)}
-                {renderIcons(<SortByAlphaRoundedIcon sx={{ fontSize: 40 }} />, 2)}
-                {renderIcons(<InsertChartRoundedIcon sx={{ fontSize: 40 }} />, 2)}
-                {renderIcons(<ImageRoundedIcon sx={{ fontSize: 40 }} />, 2)}
-                {renderIcons(<AttachEmailRoundedIcon sx={{ fontSize: 40 }} />, 2)}
-            </div>}
+            {checkingMessage !== null && <Modal />}
+            <AnimatedIconPage />
         </div>
     )
 }

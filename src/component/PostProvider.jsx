@@ -11,7 +11,7 @@ const initialState = {
     res: window.innerWidth < 900,
     errorMessage: null,
     successMessage: null,
-    internetMessage: null,
+    checkingMessage: null,
 }
 
 
@@ -33,17 +33,23 @@ function PostProvider({ children }) {
                     ...state,
                     successMessage: action.success
                 }
+            case 'checkingMessage':
+                return {
+                    ...state,
+                    checkingMessage: action.message
+                }
             default:
                 return state
         }
     }
-    const [{ res, errorMessage, successMessage }, dispatch] = useReducer(reducer, initialState);
+    const [{ res, errorMessage, successMessage, checkingMessage }, dispatch] = useReducer(reducer, initialState);
     return (
         <Provider.Provider value={{
             auth,
             res,
             errorMessage,
             successMessage,
+            checkingMessage,
             dispatch
         }}>
             {children},

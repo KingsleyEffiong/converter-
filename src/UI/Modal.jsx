@@ -12,7 +12,7 @@ function Modal() {
     }
     if (successMessage !== null) {
         Swal.fire({
-            title: "Drag me!",
+            title: "Successfully",
             icon: "success",
             text: successMessage,
             draggable: true

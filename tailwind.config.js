@@ -2,7 +2,17 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        "bounce-scale-rotate": "bounce-scale-rotate 3s infinite",
+      },
+      keyframes: {
+        "bounce-scale-rotate": {
+          "0%, 100%": { transform: "scale(1) rotate(0deg)" },
+          "50%": { transform: "scale(2) rotate(10deg)" },
+        },
+      },
+    },
   },
   plugins: [],
 };

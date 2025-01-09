@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import EventRepeatIcon from '@mui/icons-material/EventRepeat';
-import GoogleIcon from '@mui/icons-material/Google';
-import XIcon from '@mui/icons-material/X';
-import GitHubIcon from '@mui/icons-material/GitHub';
 import { Button, TextField } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PostProvider, useProvider } from "../component/PostProvider";
 import AnimatedIconPage from '../UI/AnimatedIconPage';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import ReactTypingEffect from "react-typing-effect";
 import EmailIcon from '@mui/icons-material/Email';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -16,11 +13,12 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import IconButton from '@mui/material/IconButton';
 import Modal from '../UI/Modal';
+import SigninMethods from '../component/SigninMethods';
 
 
 function Signup() {
-  const { res, dispatch, auth } = useProvider();
-  const [checkingMessage, setCheckingMessage] = useState(null);
+  const navigate = useNavigate();
+  const { res, dispatch, auth, checkingMessage } = useProvider();
   useEffect(() => {
     const handleResize = () => {
       dispatch({ type: 'responsiveness', payload: window.innerWidth < 900 })
@@ -28,8 +26,6 @@ function Signup() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [res]);
-
-  console.log(auth)
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -53,24 +49,25 @@ function Signup() {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const userId = userCredential.user.uid;
       dispatch({ type: 'successMessage', success: 'User has been added successfully' });
-
+      navigate('/login')
     } catch (err) {
       console.log(err.message);
       if (err.message.includes('Firebase: Error (auth/network-request-failed).')) {
         console.log('True')
         dispatch({ type: 'errorMessage', error: 'Network Error, Check your internet connection' });
-        setCheckingMessage('Network Error, Check your internet connection')
+        dispatch({ type: 'checkingMessage', message: 'Network Error, Check your internet connection' });
       }
       else if (err.message.includes('Firebase: Error (auth/email-already-in-use).')) {
         dispatch({ type: 'errorMessage', error: 'Email is already registered' });
-        setCheckingMessage('Email is already registered')
+        dispatch({ type: 'checkingMessage', message: 'Email is already registered' });
       }
       else {
         dispatch({ type: 'errorMessage', error: err.message });
-        setCheckingMessage(err.message)
+        dispatch({ type: 'checkingMessage', message: err.message });
       }
     }
   }
+
 
   return (
     <div className={`w-full flex items-center justify-center ${res ? 'flex-col' : 'flex-row'}`}>
@@ -245,11 +242,7 @@ function Signup() {
             <Link to='/login'>Login</Link>
           </p>
           <p className='text-center'>or signup with </p>
-          <div className="w-full flex justify-center gap-10 text-teal-950 my-3 cursor-pointer">
-            <GoogleIcon />
-            <XIcon />
-            <GitHubIcon />
-          </div>
+          <SigninMethods />
         </div>
         {checkingMessage !== null && <Modal />}
       </div >
