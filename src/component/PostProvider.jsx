@@ -59,7 +59,7 @@ function PostProvider({ children }) {
             checkingMessage,
             dispatch
         }}>
-            {children},
+            {children}
         </Provider.Provider>
     )
 }
