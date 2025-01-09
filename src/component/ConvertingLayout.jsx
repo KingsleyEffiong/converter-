@@ -16,7 +16,7 @@ function ConvertingLayout() {
     });
     return (
 
-        <div className="w-[600px] h-[1000px] bg-teal-800/70 backdrop-blur-xl shadow-2xl rounded-xl my-10 flex flex-col items-center justify-center cursor-pointer">
+        <div className="w-[600px] h-[600px] bg-teal-800/70 backdrop-blur-xl shadow-2xl rounded-xl my-10 flex flex-col items-center justify-center cursor-pointer px-5 py-7">
             <Button
                 component="label"
                 role={undefined}
