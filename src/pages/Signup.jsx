@@ -14,11 +14,12 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import IconButton from '@mui/material/IconButton';
 import Modal from '../UI/Modal';
 import SigninMethods from '../component/SigninMethods';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 function Signup() {
   const navigate = useNavigate();
-  const { res, dispatch, auth, checkingMessage } = useProvider();
+  const { res, dispatch, auth, checkingMessage, loading } = useProvider();
   useEffect(() => {
     const handleResize = () => {
       dispatch({ type: 'responsiveness', payload: window.innerWidth < 900 })
@@ -41,6 +42,7 @@ function Signup() {
   }
 
   async function handleSubmit() {
+    dispatch({ type: 'loading', payload: true })
     try {
       if (!email.trim() || !password.trim() || !cpassword.trim()) {
         throw new Error('All fields must be filled')
@@ -61,10 +63,21 @@ function Signup() {
         dispatch({ type: 'errorMessage', error: 'Email is already registered' });
         dispatch({ type: 'checkingMessage', message: 'Email is already registered' });
       }
+      else if (err.message.includes('Firebase: Error (auth/invalid-email).')) {
+        dispatch({ type: 'errorMessage', error: 'Email is invalid' });
+        dispatch({ type: 'checkingMessage', message: 'Email is invalid' });
+      }
+      else if (err.message.includes('Firebase: Password should be at least 6 characters (auth/weak-password).')) {
+        dispatch({ type: 'errorMessage', error: 'Your password is weak, use a stronger password' });
+        dispatch({ type: 'checkingMessage', message: 'Your password is weak, use a stronger password' });
+      }
       else {
         dispatch({ type: 'errorMessage', error: err.message });
         dispatch({ type: 'checkingMessage', message: err.message });
       }
+    }
+    finally {
+      dispatch({ type: 'loading', payload: false })
     }
   }
 
@@ -234,7 +247,10 @@ function Signup() {
               }}
               onClick={handleSubmit}
             >
-              Signup
+              {loading ? <CircularProgress sx={{
+                color: 'white',
+                fontSize: 1
+              }} /> : 'Signup'}
             </Button>
           </form>
           <p className='text-center'>

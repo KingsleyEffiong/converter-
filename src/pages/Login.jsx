@@ -3,8 +3,8 @@ import PictureAsPdfRoundedIcon from '@mui/icons-material/PictureAsPdfRounded';
 import SortByAlphaRoundedIcon from '@mui/icons-material/SortByAlphaRounded';
 import InsertChartRoundedIcon from '@mui/icons-material/InsertChartRounded';
 import ImageRoundedIcon from '@mui/icons-material/ImageRounded';
-import EventRepeatIcon from '@mui/icons-material/EventRepeat';
 import AttachEmailRoundedIcon from '@mui/icons-material/AttachEmailRounded';
+import EventRepeatIcon from '@mui/icons-material/EventRepeat';
 import { Button, TextField } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { useProvider } from '../component/PostProvider';
@@ -18,8 +18,10 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import IconButton from '@mui/material/IconButton';
 import AnimatedIconPage from '../UI/AnimatedIconPage';
+import CircularProgress from '@mui/material/CircularProgress';
+
 function Login() {
-    const { res, dispatch, checkingMessage, auth } = useProvider();
+    const { res, dispatch, checkingMessage, auth, loading } = useProvider();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -40,6 +42,7 @@ function Login() {
         return () => window.removeEventListener('resize', handleResize);
     }, [res]);
     async function handleLogin() {
+        dispatch({ type: 'loading', payload: true })
         try {
             if (!email.trim() || !password.trim()) {
                 throw new Error('All fields must be filled')
@@ -66,6 +69,9 @@ function Login() {
                 dispatch({ type: 'errorMessage', error: err.message });
                 dispatch({ type: 'checkingMessage', message: err.message });
             }
+        }
+        finally {
+            dispatch({ type: 'loading', payload: false })
         }
     }
     return (
@@ -173,7 +179,10 @@ function Login() {
                                 },
                             }}
                         >
-                            Login
+                            {loading ? <CircularProgress sx={{
+                                color: 'white',
+                                fontSize: 1
+                            }} /> : 'Login'}
                         </Button>
                     </form>
                     <p className='text-center'>

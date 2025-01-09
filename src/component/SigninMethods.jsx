@@ -20,6 +20,9 @@ function SigninMethods() {
             if (err.message.includes('Firebase: Error (auth/internal-error).')) {
                 dispatch({ type: 'errorMessage', error: 'Network Error, Check your internet connection and try again!!!!' });
                 dispatch({ type: 'checkingMessage', message: 'Network Error, Check your internet connection and try again!!!!' });
+            } else if ("Firebase: Error (auth/popup-closed-by-user).") {
+                dispatch({ type: 'errorMessage', error: 'You close the signin modal, Please signin again' });
+                dispatch({ type: 'checkingMessage', message: "You close the signin modal, Please signin again" });
             } else {
                 dispatch({ type: 'errorMessage', error: err.message });
                 dispatch({ type: 'checkingMessage', message: err.message });
@@ -38,7 +41,11 @@ function SigninMethods() {
             if (err.message.includes('Firebase: Error (auth/internal-error).')) {
                 dispatch({ type: 'errorMessage', error: 'Network Error, Check your internet connection and try again!!!!' });
                 dispatch({ type: 'checkingMessage', message: 'Network Error, Check your internet connection and try again!!!!' });
-            } else {
+            } else if ("Firebase: Error (auth/popup-closed-by-user).") {
+                dispatch({ type: 'errorMessage', error: 'You close the signin modal, Please signin again' });
+                dispatch({ type: 'checkingMessage', message: "You close the signin modal, Please signin again" });
+            }
+            else {
                 dispatch({ type: 'errorMessage', error: err.message });
                 dispatch({ type: 'checkingMessage', message: err.message });
             }
@@ -56,7 +63,11 @@ function SigninMethods() {
             if (err.message.includes('Firebase: Error (auth/internal-error).')) {
                 dispatch({ type: 'errorMessage', error: 'Network Error, Check your internet connection and try again!!!!' });
                 dispatch({ type: 'checkingMessage', message: 'Network Error, Check your internet connection and try again!!!!' });
-            } else {
+            } else if ("Firebase: Error (auth/popup-closed-by-user).") {
+                dispatch({ type: 'errorMessage', error: 'You close the signin modal, Please signin again' });
+                dispatch({ type: 'checkingMessage', message: "You close the signin modal, Please signin again" });
+            }
+            else {
                 dispatch({ type: 'errorMessage', error: err.message });
                 dispatch({ type: 'checkingMessage', message: err.message });
             }
