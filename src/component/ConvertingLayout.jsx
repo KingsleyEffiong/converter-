@@ -20,7 +20,6 @@ function ConvertingLayout() {
         }
 
         setLoading(true);
-
         try {
             const formData = new FormData();
             formData.append("file", file);
@@ -102,6 +101,7 @@ function ConvertingLayout() {
     const handleDrop = (event) => {
         event.preventDefault();
         setDragActive(false);
+        console.log(event)
 
         if (event.dataTransfer.files && event.dataTransfer.files[0]) {
             setFile(event.dataTransfer.files[0]);
