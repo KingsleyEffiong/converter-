@@ -4,12 +4,14 @@ import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import { Button, CircularProgress } from '@mui/material';
 import { Document, Packer, Paragraph } from "docx"; // Import necessary docx classes
 import ReactTypingEffect from 'react-typing-effect';
+import { useProvider } from './PostProvider';
 
 function ConvertingLayout() {
     const [file, setFile] = useState(null);
     const [downloadUrl, setDownloadUrl] = useState("");
     const [loading, setLoading] = useState(false);
     const [dragActive, setDragActive] = useState(false);
+    const { convertFormat } = useProvider();
 
     async function convertWithPdfCo() {
         if (!file) {
@@ -178,7 +180,7 @@ function ConvertingLayout() {
                     },
                 }}
             >
-                {loading ? <CircularProgress size={24} sx={{ color: '#FFFFFF' }} /> : 'Convert to Word'}
+                {loading ? <CircularProgress size={24} sx={{ color: '#FFFFFF' }} /> : convertFormat !== null ? convertFormat : 'Convert to word'}
             </Button>
 
             {downloadUrl && (
