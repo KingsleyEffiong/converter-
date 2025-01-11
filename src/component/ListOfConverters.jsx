@@ -52,21 +52,21 @@ function ListOfConverters() {
                                 role="button"
                                 tabIndex="0"
                                 aria-label={`Select ${converter.converter}`}
-                                className={`absolute bg-white w-fit px-4 py-2 h-fit shadow-[0px_8px_24px_rgba(20,184,166,0.8)] rounded-xl flex flex-col gap-3 cursor-pointer ${isSelectedFormat(converter.converter)
+                                className={`absolute bg-white w-fit px-4 py-2 h-fit shadow-[0px_8px_24px_rgba(20,184,166,0.8)] rounded-xl flex flex-col gap-3 cursor-pointer ${isSelectedFormat(converter.endpoint)
                                     ? 'animate-bounce'
                                     : 'animate-bounce-scale-rotate'
                                     }`}
                                 onClick={() =>
                                     dispatch({
                                         type: 'convertFormat',
-                                        payload: converter.converter, // Single selection logic
+                                        payload: converter.endpoint, // Single selection logic
                                     })
                                 }
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter') {
                                         dispatch({
                                             type: 'convertFormat',
-                                            payload: converter.converter,
+                                            payload: converter.endpoint,
                                         });
                                     }
                                 }}
