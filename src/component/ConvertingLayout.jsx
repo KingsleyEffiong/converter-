@@ -3,6 +3,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import { Button, CircularProgress } from '@mui/material';
 import { Document, Packer, Paragraph } from "docx"; // Import necessary docx classes
+import ReactTypingEffect from 'react-typing-effect';
 
 function ConvertingLayout() {
     const [file, setFile] = useState(null);
@@ -146,7 +147,14 @@ function ConvertingLayout() {
                 </Button>
 
                 <h1 className="mt-6 text-2xl text-gray-200 font-medium text-center">
-                    Drag and drop files here...
+                    <ReactTypingEffect
+                        text={["Drag and drop files here..."]}
+                        speed={100}
+                        eraseSpeed={50}
+                        typingDelay={500}
+                        eraseDelay={2000}
+                    />
+
                 </h1>
 
                 {file && (
