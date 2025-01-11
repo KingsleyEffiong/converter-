@@ -13,7 +13,7 @@ const initialState = {
     successMessage: null,
     checkingMessage: null,
     loading: false,
-    convertFormat: null
+    convertFormat: 'pdf-to-word'
 }
 
 
