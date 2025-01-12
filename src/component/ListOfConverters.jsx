@@ -43,7 +43,7 @@ function ListOfConverters() {
     return (
         <div className="w-full h-auto pb-36 bg-white">
             <p className='text-teal-950 text-[2rem] mb-7'>Please select  your desire converting format</p>
-            <ul className="w-full flex flex-wrap px-4 pt-12 gap-5 justify-center md:justify-start">
+            <ul className="w-full flex flex-wrap px-4 gap-5 justify-center md:justify-start">
                 {CONVERTERS.map((converter) => (
                     <li
                         className="relative w-[280px] h-[140px] rounded-lg bg-teal-950 my-8"
@@ -56,7 +56,7 @@ function ListOfConverters() {
                                 aria-label={`Select ${converter.converter}`}
                                 className={`absolute bg-white w-fit px-4 py-2 h-fit shadow-[0px_8px_24px_rgba(20,184,166,0.8)] rounded-xl flex flex-col gap-3 cursor-pointer ${isSelectedFormat(converter.endpoint)
                                     ? 'animate-bounce'
-                                    : 'animate-bounce-scale-rotate'
+                                    : 'animate-none'
                                     }`}
                                 onClick={() =>
                                     dispatch({

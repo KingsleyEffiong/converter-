@@ -6,6 +6,7 @@ import { Document, Packer, Paragraph } from "docx";
 import ReactTypingEffect from "react-typing-effect";
 import FETCHEDAPI from "../FETCHEDAPI";
 import { useProvider } from "./PostProvider";
+import Modal from "../UI/Modal";
 
 function ConvertingLayout() {
     const [file, setFile] = useState(null);
@@ -13,7 +14,7 @@ function ConvertingLayout() {
     const [loading, setLoading] = useState(false);
     const [dragActive, setDragActive] = useState(false);
 
-    const { convertFormat, dispatch } = useProvider();
+    const { convertFormat, dispatch, errorMessage } = useProvider();
 
     const uploadFile = async (file) => {
         const formData = new FormData();
@@ -82,7 +83,8 @@ function ConvertingLayout() {
                 setDownloadUrl(convertedFileUrl);
             }
         } catch (error) {
-            alert(`Error: ${error.message}`);
+            // alert(`Error: ${error.message}`);
+            dispatch({ type: 'errorMessage', error: error.message });
         } finally {
             setLoading(false);
         }
@@ -118,7 +120,7 @@ function ConvertingLayout() {
                 <Button
                     component="label"
                     variant="contained"
-                    disabled={convertFormat === null}
+                    // disabled={convertFormat === null}
                     startIcon={<CloudUploadIcon />}
                     sx={{
                         backgroundColor: "#14B8A6",
@@ -180,6 +182,7 @@ function ConvertingLayout() {
                     Download Converted File
                 </a>
             )}
+            {errorMessage && <Modal />}
         </div>
     );
 }

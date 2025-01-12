@@ -9,7 +9,7 @@ function Dashboard() {
     return (
         <div className='text-center bg-teal-950 h-screen flex flex-col items-center'>
             <Navbar />
-            <h1 className='text-white animate-pulse text-[2rem] md:text-[4rem]'>Convert your files easily</h1>
+            <h1 className='text-white text-[2rem] md:text-[4rem]'>Convert your files easily</h1>
             <ConvertingLayout />
             <ListOfConverters />
             <Footer />

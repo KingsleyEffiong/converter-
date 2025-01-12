@@ -37,7 +37,7 @@ function Modal() {
                 showConfirmButton: false,
                 draggable: true,
                 timer: 1500,
-            });
+            }).then(() => dispatch({ type: 'convertFormat', payload: null }));
         }
     }, [convertFormat]);
 
