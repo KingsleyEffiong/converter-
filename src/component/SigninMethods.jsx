@@ -14,7 +14,7 @@ function SigninMethods() {
             const authenticate = await signInWithPopup(auth, googleProvider);
             const user = authenticate.user
             console.log(user);
-            navigate('/dashbaord');
+            navigate('/dashboard');
         } catch (err) {
             console.log(err.message)
             if (err.message.includes('Firebase: Error (auth/internal-error).')) {
@@ -35,7 +35,7 @@ function SigninMethods() {
             const authenticate = await signInWithPopup(auth, Githubprovider);
             const user = authenticate.user
             console.log(user);
-            navigate('/dashbaord');
+            navigate('/dashboard');
         } catch (err) {
             console.log(err.message)
             if (err.message.includes('Firebase: Error (auth/internal-error).')) {
@@ -57,7 +57,7 @@ function SigninMethods() {
             const authenticate = await signInWithPopup(auth, Twitterprovider);
             const user = authenticate.user
             console.log(user);
-            navigate('/dashbaord');
+            navigate('/dashboard');
         } catch (err) {
             console.log(err.message)
             if (err.message.includes('Firebase: Error (auth/internal-error).')) {

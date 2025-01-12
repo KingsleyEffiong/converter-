@@ -30,17 +30,6 @@ function Login() {
     }
     const navigate = useNavigate();
 
-
-    useEffect(() => {
-        const handleResize = () => {
-            dispatch({ type: 'responsiveness', payload: window.innerWidth < 900 })
-        };
-        // Add event listener for window resize
-        window.addEventListener('resize', handleResize);
-
-        // Cleanup event listener on unmount
-        return () => window.removeEventListener('resize', handleResize);
-    }, [res]);
     async function handleLogin() {
         dispatch({ type: 'loading', payload: true })
         try {
@@ -50,7 +39,7 @@ function Login() {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             console.log(userCredential);
             dispatch({ type: 'successMessage', success: 'You have successfully logged in' });
-            navigate('/dashbaord');
+            navigate('/dashboard');
         } catch (err) {
             console.log(err.message);
             if (err.message.includes('Firebase: Error (auth/network-request-failed).')) {

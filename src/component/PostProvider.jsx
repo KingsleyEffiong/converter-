@@ -13,14 +13,14 @@ const initialState = {
     successMessage: null,
     checkingMessage: null,
     loading: false,
-    convertFormat: 'pdf-to-word'
+    convertFormat: null,
 }
 
 
 function PostProvider({ children }) {
     function reducer(state, action) {
         switch (action.type) {
-            case 'Responsiveness':
+            case 'responsiveness':
                 return {
                     ...state,
                     res: action.payload

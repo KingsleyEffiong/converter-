@@ -20,14 +20,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 function Signup() {
   const navigate = useNavigate();
   const { res, dispatch, auth, checkingMessage, loading } = useProvider();
-  useEffect(() => {
-    const handleResize = () => {
-      dispatch({ type: 'responsiveness', payload: window.innerWidth < 900 })
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [res]);
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [cpassword, setCPassword] = useState('');

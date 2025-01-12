@@ -107,7 +107,7 @@ function ConvertingLayout() {
     };
 
     return (
-        <div className="w-[600px] h-[600px] bg-teal-800/70 backdrop-blur-xl shadow-2xl rounded-xl my-10 flex flex-col items-center justify-center px-5 py-7 relative">
+        <div className=" w-[360px] md:w-[600px] h-[600px] bg-teal-800/70 backdrop-blur-xl shadow-2xl rounded-xl my-10 flex flex-col items-center justify-center px-5 py-7 relative">
             <div
                 className={`w-full h-full flex flex-col px-4 py-2 shadow-[0px_8px_24px_rgba(20,184,166,0.8)] rounded-xl items-center justify-center border-2 ${dragActive ? "border-dashed border-white" : "border-dashed border-teal-400"
                     }`}
@@ -118,10 +118,10 @@ function ConvertingLayout() {
                 <Button
                     component="label"
                     variant="contained"
+                    disabled={convertFormat === null}
                     startIcon={<CloudUploadIcon />}
                     sx={{
                         backgroundColor: "#14B8A6",
-                        padding: "1rem",
                         fontSize: "1rem",
                         color: "#FFFFFF",
                         "&:hover": {

@@ -9,6 +9,7 @@ import {
 } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import { useProvider } from './PostProvider';
+import Modal from '../UI/Modal';
 
 const CustomIconButton = ({ children }) => (
     <IconButton
@@ -27,7 +28,7 @@ const CustomIconButton = ({ children }) => (
     </IconButton>
 );
 
-const CONVERTERS = [
+export const CONVERTERS = [
     { id: 1, converter: 'Pdf to Word', endpoint: 'pdf-to-word', icon: <CustomIconButton><PictureAsPdf /><SortByAlphaRounded /></CustomIconButton> },
     { id: 2, converter: 'Pdf to Excel', endpoint: 'pdf-to-excel', icon: <CustomIconButton><PictureAsPdf /><Description /></CustomIconButton> },
     { id: 3, converter: 'Image to Pdf', endpoint: 'image-to-pdf', icon: <CustomIconButton><ImageOutlined /><PictureAsPdf /></CustomIconButton> },
@@ -40,8 +41,9 @@ function ListOfConverters() {
     const isSelectedFormat = (format) => convertFormat === format;
 
     return (
-        <div className="w-full h-[500px] bg-white">
-            <ul className="w-full flex flex-wrap px-4 pt-12 gap-5 justify-center">
+        <div className="w-full h-auto pb-36 bg-white">
+            <p className='text-teal-950 text-[2rem] mb-7'>Please select  your desire converting format</p>
+            <ul className="w-full flex flex-wrap px-4 pt-12 gap-5 justify-center md:justify-start">
                 {CONVERTERS.map((converter) => (
                     <li
                         className="relative w-[280px] h-[140px] rounded-lg bg-teal-950 my-8"
@@ -80,6 +82,7 @@ function ListOfConverters() {
                     </li>
                 ))}
             </ul>
+            {convertFormat !== null && <Modal />}
         </div>
     );
 }
