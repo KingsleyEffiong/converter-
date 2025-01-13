@@ -1,6 +1,5 @@
 import React from 'react'
 import Navbar from '../UI/Navbar'
-import PdfToWord from '../component/PdfToWord'
 import ListOfConverters from '../component/ListOfConverters'
 import ConvertingLayout from '../component/ConvertingLayout'
 import Footer from '../component/Footer'
