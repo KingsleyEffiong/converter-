@@ -6,6 +6,8 @@ import { CONVERTERS } from '../component/ListOfConverters';
 function Modal() {
     const { dispatch, errorMessage, successMessage, convertFormat } = useProvider();
 
+
+    
     useEffect(() => {
         if (errorMessage !== null) {
             Swal.fire({
