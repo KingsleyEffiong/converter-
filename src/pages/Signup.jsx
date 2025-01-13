@@ -17,6 +17,8 @@ import SigninMethods from '../component/SigninMethods';
 import CircularProgress from '@mui/material/CircularProgress';
 
 
+
+
 function Signup() {
   const navigate = useNavigate();
   const { res, dispatch, auth, checkingMessage, loading } = useProvider();
