@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { createContext, useContext, useReducer } from "react";
 import { auth } from '../Firebase'
+import {} from 'firebase/auth'
 PostProvider.propTypes = {
     children: PropTypes.any.isRequired,
 };

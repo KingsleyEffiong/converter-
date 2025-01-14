@@ -6,19 +6,6 @@ import { CONVERTERS } from '../component/ListOfConverters';
 function Modal() {
     const { dispatch, errorMessage, successMessage, convertFormat } = useProvider();
 
-
-    
-    useEffect(() => {
-        if (errorMessage !== null) {
-            Swal.fire({
-                icon: "error",
-                title: "Oops!",
-                text: errorMessage,
-                draggable: true,
-            }).then(() => dispatch({ type: 'errorMessage', error: null }));
-        }
-    }, [errorMessage, dispatch]);
-
     useEffect(() => {
         if (successMessage !== null) {
             Swal.fire({
@@ -31,19 +18,16 @@ function Modal() {
     }, [successMessage, dispatch]);
 
     useEffect(() => {
-        if (convertFormat !== null && CONVERTERS.find((converter) => converter.endpoint === convertFormat)) {
+        if (errorMessage !== null) {
             Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: `${convertFormat.replace(/--/g, ' ')} Selected convert`,
-                showConfirmButton: false,
+                icon: "error",
+                title: "Oops!",
+                text: errorMessage,
                 draggable: true,
-                timer: 1500,
-            }).then(() => dispatch({ type: 'convertFormat', payload: null }));
+            }).then(() => dispatch({ type: 'errorMessage', error: null }));
         }
-    }, [convertFormat]);
-
-    return null;
+    }, [errorMessage, dispatch]);
 }
+
 
 export default Modal;

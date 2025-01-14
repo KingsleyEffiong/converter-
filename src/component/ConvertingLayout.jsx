@@ -120,7 +120,7 @@ function ConvertingLayout() {
                 <Button
                     component="label"
                     variant="contained"
-                    // disabled={convertFormat === null}
+                    disabled={convertFormat === null}
                     startIcon={<CloudUploadIcon />}
                     sx={{
                         backgroundColor: "#14B8A6",
