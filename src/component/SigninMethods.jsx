@@ -29,28 +29,28 @@ function SigninMethods() {
             }
         }
     }
-    async function handleGithubAuth() {
-        const Githubprovider = new GithubAuthProvider();
-        try {
-            const authenticate = await signInWithPopup(auth, Githubprovider);
-            const user = authenticate.user
-            console.log(user);
-            navigate('/dashboard');
-        } catch (err) {
-            console.log(err.message)
-            if (err.message.includes('Firebase: Error (auth/internal-error).')) {
-                dispatch({ type: 'errorMessage', error: 'Network Error, Check your internet connection and try again!!!!' });
-                dispatch({ type: 'checkingMessage', message: 'Network Error, Check your internet connection and try again!!!!' });
-            } else if ("Firebase: Error (auth/popup-closed-by-user).") {
-                dispatch({ type: 'errorMessage', error: 'You close the signin modal, Please signin again' });
-                dispatch({ type: 'checkingMessage', message: "You close the signin modal, Please signin again" });
-            }
-            else {
-                dispatch({ type: 'errorMessage', error: err.message });
-                dispatch({ type: 'checkingMessage', message: err.message });
-            }
-        }
-    }
+    // async function handleGithubAuth() {
+    //     const Githubprovider = new GithubAuthProvider();
+    //     try {
+    //         const authenticate = await signInWithPopup(auth, Githubprovider);
+    //         const user = authenticate.user
+    //         console.log(user);
+    //         navigate('/dashboard');
+    //     } catch (err) {
+    //         console.log(err.message)
+    //         if (err.message.includes('Firebase: Error (auth/internal-error).')) {
+    //             dispatch({ type: 'errorMessage', error: 'Network Error, Check your internet connection and try again!!!!' });
+    //             dispatch({ type: 'checkingMessage', message: 'Network Error, Check your internet connection and try again!!!!' });
+    //         } else if ("Firebase: Error (auth/popup-closed-by-user).") {
+    //             dispatch({ type: 'errorMessage', error: 'You close the signin modal, Please signin again' });
+    //             dispatch({ type: 'checkingMessage', message: "You close the signin modal, Please signin again" });
+    //         }
+    //         else {
+    //             dispatch({ type: 'errorMessage', error: err.message });
+    //             dispatch({ type: 'checkingMessage', message: err.message });
+    //         }
+    //     }
+    // }
     async function handleTwitterAuth() {
         const Twitterprovider = new TwitterAuthProvider();
         try {
@@ -82,9 +82,9 @@ function SigninMethods() {
             <IconButton onClick={handleTwitterAuth}>
                 <XIcon className="text-teal-950" />
             </IconButton>
-            <IconButton onClick={handleGithubAuth}>
+            {/* <IconButton onClick={handleGithubAuth}>
                 <GitHubIcon className="text-teal-950" />
-            </IconButton>
+            </IconButton> */}
         </div>
     )
 }
