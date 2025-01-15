@@ -14,7 +14,7 @@ function ConvertingLayout() {
     const [loading, setLoading] = useState(false);
     const [dragActive, setDragActive] = useState(false);
 
-    const { convertFormat, dispatch, errorMessage } = useProvider();
+    const { convertFormat, dispatch, errorMessage, successMessage } = useProvider();
 
     const uploadFile = async (file) => {
         const formData = new FormData();
@@ -182,7 +182,7 @@ function ConvertingLayout() {
                     Download Converted File
                 </a>
             )}
-            {errorMessage && <Modal />}
+            {errorMessage || successMessage && <Modal />}
         </div>
     );
 }
