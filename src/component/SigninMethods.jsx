@@ -13,7 +13,7 @@ function SigninMethods() {
         try {
             const authenticate = await signInWithPopup(auth, googleProvider);
             const user = authenticate.user
-            console.log(user);
+            dispatch({ type: 'successMessage', success: 'You have successfully logged in' });
             navigate('/dashboard');
         } catch (err) {
             console.log(err.message)
@@ -56,7 +56,7 @@ function SigninMethods() {
         try {
             const authenticate = await signInWithPopup(auth, Twitterprovider);
             const user = authenticate.user
-            console.log(user);
+            dispatch({ type: 'successMessage', success: 'You have successfully logged in' });
             navigate('/dashboard');
         } catch (err) {
             console.log(err.message)
